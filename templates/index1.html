@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Eye Tracking AAC</title>
+    
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index1.css') }}">  
+    
+</head>
+<body>
+    <text>
+            <div class = "textbox"> 
+                    <h2 id="main">Welcome to the AAC</h2>
+                    <p>x = <span id="ex">x</span> y = <span id="ey">y</span></p>
+                </div>
+    </text>
+   <grid>
+        <div class="grid-container">
+                <div class="grid-item"><button class="block" onclick="change('a')" type="button">A</button></div>
+                <div class="grid-item"><button class="block" onclick="change('b')" type="button">B</button></div>
+                <div class="grid-item"><button class="block" onclick="change('c')" type="button">C</button></div>
+                <div class="grid-item"><button class="block" onclick="change('d')" type="button">D</button></div>
+                <div class="grid-item"><button class="block" onclick="change('e')" type="button">E</button></div>
+                <div class="grid-item"><button class="block" onclick="change('f')" type="button">F</button></div>
+                <div class="grid-item"><button class="block" onclick="change('g')" type="button">G</button></div>
+                <div class="grid-item"><button class="block" onclick="change('h')" type="button">H</button></div>
+                <div class="grid-item"><button class="block" onclick="change('i')" type="button">I</button></div>
+                <div class="grid-item"><button class="block" onclick="change('j')" type="button">J</button></div>
+                <div class="grid-item"><button class="block" onclick="change('k')" type="button">K</button></div>
+                <div class="grid-item"><button class="block" onclick="change('l')" type="button">L</button></div>
+                <div class="grid-item"><button class="block" onclick="change('m')" type="button">M</button></div>
+                <div class="grid-item"><button class="block" onclick="change('n')" type="button">N</button></div>
+                <div class="grid-item"><button class="block" onclick="change('o')" type="button">O</button></div>
+                <div class="grid-item"><button class="block" onclick="change('p')" type="button">P</button></div>
+                <div class="grid-item"><button class="block" onclick="change('q')" type="button">Q</button></div>
+                <div class="grid-item"><button class="block" onclick="change('r')" type="button">R</button></div>
+                <div class="grid-item"><button class="block" onclick="change('s')" type="button">S</button></div>
+                <div class="grid-item"><button class="block" onclick="change('t')" type="button">T</button></div>
+                <div class="grid-item"><button class="block" onclick="change('u')" type="button">U</button></div>
+                <div class="grid-item"><button class="block" onclick="change('v')" type="button">V</button></div>
+                <div class="grid-item"><button class="block" onclick="change('w')" type="button">W</button></div>
+                <div class="grid-item"><button class="block" onclick="change('x')" type="button">X</button></div>
+                <div class="grid-item"><button class="block" onclick="change('y')" type="button">Y</button></div>
+                <div class="grid-item"><button class="block" onclick="change('z')" type="button">Z</button></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"></div>
+                <div class="grid-item"><button class="block" onclick="change('<=')" type="button">{=</button></div>
+              </div>
+        </grid>
+    
+        <video id="camera" height="350" width="400" ></video>
+        <!-- <button class="block" onclick="sendframe()">Send</button> -->
+        <canvas id="frame" height="350" width= "400"></canvas>
+        <canvas id="eyeimg" height="350" width= "400"></canvas> 
+        
+    <script src="{{url_for('static', filename='js/keyboard.js')}}"></script>
+    <script src="{{url_for('static', filename='js/socketjsio.js')}}"></script>>
+    <script src="{{url_for('static', filename='js/jquery.js')}}" ></script>
+    <script>
+        
+        var socket
+        $(document).ready(function(){
+            if (navigator.getUserMedia){
+                console.log("True")
+                navigator.getUserMedia({
+                    audio: false,
+                    video: true
+                },success,failed)
+            }
+            else
+                console.log("False")
+            
+            
+            socket = io()
+            // socket.emit("name", "My name is Joel")
+            socket.on("response", function(xy){
+               console.log(xy)
+               console.log(xy.blur)
+               $('#ex').html(xy.x) 
+               $('#ey').html(xy.y)
+               var img = new Image();
+               img.source = xy.blur
+              var eyeimage = document.getElementById("eyeimg")
+              var canv = eyeimage.getContext('2d')
+              var finalimg = canv.drawImage(img, 0, 0, 300, 300)
+              
+
+            })
+           
+          // cam.play()
+        })
+        function success(stream){
+            var cam = document.getElementById("camera")
+            cam.srcObject = stream
+            cam.play()
+           // cam.onloadedmetadata = function(){cam.play}
+        }
+        function failed(error){
+            alert(error)
+        }
+        function sendframe(){
+            var cam = document.getElementById("camera")
+            var canv = document.getElementById("frame")
+            var context = canv.getContext("2d")
+            context.drawImage(cam, 0, 0, 400, 350)
+            var image = canv.toDataURL('image/jpeg', 1)
+            console.log("Sending frame")
+            socket.emit("frame", image)
+        }
+     setInterval(sendframe, 2000)
+    </script>
+</body>
+</html>
