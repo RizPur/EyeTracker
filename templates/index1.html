@@ -51,10 +51,11 @@
               </div>
         </grid>
     
-        <video id="camera" height="350" width="400" ></video>
+        <video id="camera" height="480" width="640" ></video>
         <!-- <button class="block" onclick="sendframe()">Send</button> -->
-        <canvas id="frame" height="350" width= "400"></canvas>
-        <canvas id="eyeimg" height="350" width= "400"></canvas> 
+        <canvas id="frame" height="480" width= "640"></canvas>
+        <canvas id="eyeimg" height="480" width= "640"></canvas> 
+        <canvas id="blurimg" height="480" width= "640"></canvas> 
         
     <script src="{{url_for('static', filename='js/keyboard.js')}}"></script>
     <script src="{{url_for('static', filename='js/socketjsio.js')}}"></script>>
@@ -77,16 +78,23 @@
             socket = io()
             // socket.emit("name", "My name is Joel")
             socket.on("response", function(xy){
-               console.log(xy)
-               console.log(xy.blur)
-               $('#ex').html(xy.x) 
-               $('#ey').html(xy.y)
-               var img = new Image();
-               img.source = xy.blur
-              var eyeimage = document.getElementById("eyeimg")
-              var canv = eyeimage.getContext('2d')
-              var finalimg = canv.drawImage(img, 0, 0, 300, 300)
-              
+                // console.log(xy)
+                // console.log(xy.blur)
+                $('#ex').html(xy.x) 
+                $('#ey').html(xy.y)
+                var img = new Image();
+                var eyeimage = document.getElementById("eyeimg")
+                var canv = eyeimage.getContext('2d')
+                img.onload = function(){canv.drawImage(img, 0, 0)}
+                img.src = xy.blur
+
+                var blurr = new Image();
+                var blurimage = document.getElementById("blurimg")
+                var canv2 = blurimage.getContext('2d')
+                blurr.onload = function(){canv2.drawImage(blurr, 0, 0)}
+                blurr.src = xy.img
+
+
 
             })
            
@@ -105,12 +113,12 @@
             var cam = document.getElementById("camera")
             var canv = document.getElementById("frame")
             var context = canv.getContext("2d")
-            context.drawImage(cam, 0, 0, 400, 350)
+            context.drawImage(cam, 0, 0)
             var image = canv.toDataURL('image/jpeg', 1)
             console.log("Sending frame")
             socket.emit("frame", image)
         }
-     setInterval(sendframe, 2000)
+     setInterval(sendframe, 200)
     </script>
 </body>
 </html>

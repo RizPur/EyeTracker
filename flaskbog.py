@@ -10,7 +10,7 @@ import logging
 
 
 
-
+print(cv2.__version__)
 
 
 
@@ -35,7 +35,7 @@ def show(image):
 @app.route("/")
 @app.route("/home")
 def home():
-    print("Helllo")
+    print("Hi")
     return render_template('index1.html', x = 135, y = 122)
 
 

@@ -6,16 +6,16 @@ eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 thresh = 11
 def imagejson(image):
     _, buffer = cv2.imencode('.jpg', image)
-    eyejpg = base64.b64encode(buffer)
+    eyejpg = base64.b64encode(buffer).decode("utf-8")
     #print(eyejpg)
-    return eyejpg
+    return "data:image/jpg;base64," + eyejpg
 
 def blurjson(image):
     blur_eye = blob_process(image, thresh, detector)
     _, buffer1 = cv2.imencode('.jpg', blur_eye)
-    blurjpg = base64.b64encode(buffer1)
-    print(buffer1)
-    return blurjpg
+    blurjpg = base64.b64encode(buffer1).decode("utf-8")
+    #print(buffer1)
+    return "data:image/jpg;base64," + blurjpg
 
 
 def readB64(uri):
@@ -103,12 +103,12 @@ def pupil(contours, eye):
 last_biggest = (0, 0, 0, 0)
 
 
-def getXY(frames):
+def getXY(frame):
 
-    if frames is None:
+    if frame is None:
         print("No frames detected")
         return -1
-    frame = resize(frames, 1)
+    # frame = resize(frames, 1)
 
     
     eyes = eye_cascade.detectMultiScale(frame) #array of arrays of eyes
@@ -134,7 +134,7 @@ def getXY(frames):
         xPupil = int(x+w/2)
         yPupil = int(y+h/2)
         #print('Pupil Center: ', xPupil, yPupil)
-        #cv2.rectangle(eye, (x,y), (x+w, y+h), (255, 0, 0), 1)
+        cv2.rectangle(eye, (x,y), (x+w, y+h), (255, 0, 0), 1)
         cv2.line(eye, (xPupil,0), (xPupil, 300), (200,0,0), 1 )
         cv2.line(eye, (0, yPupil), (400, yPupil), (200, 0, 0), 1)
         break
