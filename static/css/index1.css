@@ -14,6 +14,11 @@
     background-color: #ddd;
     color: black;
 }
+
+.highlight{
+    background-color: #ddd;
+    color: black;
+}
 .grid-container {
     display: grid;
     grid-template-columns: auto auto auto auto auto;
@@ -29,7 +34,7 @@ text-align: center;
 }
 
 #main {
-    color: red;
+    color: blue;
 }
 .textbox{
   background-color: black;

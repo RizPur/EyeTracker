@@ -100,3 +100,5 @@ function change(letter){
     document.getElementById("main").innerHTML = tex;
 }
 var count = 0;
+
+
