@@ -29,7 +29,16 @@
                 <div class="grid-item"><button id="i" class="block" onclick="change('i')" type="button">I</button></div>
                 <div class="grid-item"><button id="j" class="block" onclick="change('j')" type="button">J</button></div>
                 <div class="grid-item"><button id="k" class="block" onclick="change('k')" type="button">K</button></div>
-                <div class="grid-item"><button id="l" class="block" onclick="change('l')" type="button">L</button></div>
+                <div class="grid-item"><button id="l" class="block" onclick="change('l')" type="button">L/Y</button></div>
+        </div>
+        <text>
+            <div class = "textbox"> 
+                    <h2 id="main2">Welcome to the AAC</h2>
+                    <p>x = <span id="ex2">x</span> y = <span id="ey2">y</span> </p>
+            </div>
+        </text>
+
+        <div class = "grid-container">
                 <div class="grid-item"><button id="m" class="block" onclick="change('m')" type="button">M</button></div>
                 <div class="grid-item"><button id="n" class="block" onclick="change('n')" type="button">N</button></div>
                 <div class="grid-item"><button id="o" class="block" onclick="change('o')" type="button">O</button></div>
@@ -41,12 +50,12 @@
                 <div class="grid-item"><button id="u" class="block" onclick="change('u')" type="button">U</button></div>
                 <div class="grid-item"><button id="v" class="block" onclick="change('v')" type="button">V</button></div>
                 <div class="grid-item"><button id="w" class="block" onclick="change('w')" type="button">W</button></div>
-                <div class="grid-item"><button id="x" class="block" onclick="change('x')" type="button">X</button></div>
+                <div class="grid-item"><button id="x" class="block" onclick="change('x')" type="button">X/Z</button></div>
                 <div class="grid-item"><button id="y" class="block" onclick="change('y')" type="button">Y</button></div>
                 <div class="grid-item"><button id="z" class="block" onclick="change('z')" type="button">Z</button></div>
-                <div class="grid-item"></div>
+                <!-- <div class="grid-item"></div> -->
                 <div class="grid-item"><button class="block" onclick="recalibrate()" type="button">Recalibrate</button></div>
-                <div class="grid-item"></div>
+                <!-- <div class="grid-item"></div> -->
                 <div class="grid-item"><button class="block" onclick="change('<=')" type="button">{=</button></div>
               </div>
     </grid>
@@ -58,73 +67,84 @@
         <canvas id="blurimg" height="480" width= "640"></canvas> 
         
     <!-- <script src="{{url_for('static', filename='js/keyboard.js')}}"></script> -->
-    <script src="{{url_for('static', filename='js/socketjsio.js')}}"></script>>
+    <script src="{{url_for('static', filename='js/socketjsio.js')}}"></script>
     <script src="{{url_for('static', filename='js/jquery.js')}}" ></script>
     <script>
-        var xCenter, yCenter, xTLeft, yTLeft, xBLeft, yBLeft, xBRight, yBRight, xTRight, yTRight
-        var center, tleft, tright, bleft, bright = false
-        var cal = 0;
+        var xA, yA, xE, yE, xK, yK, xB, yB, xC, yC, xD, yD, xF, yF, xG, yG, xH, yH, xI, yI, xJ, yJ, xL, yL
+        var xM, yM, xN, yN, xO, yO, xP, yP, xQ, yQ, xR, yR, xS, yS, xT, yT, xU, yU, xV, yV, xW, yW, xX, yX
+        var mM, aA, eE, uU, yyY, bB, cC, dD, fF, gG = false
+        var arr 
+        var scrolly = 2
+        var cal, topPage;
+        // document.getElementById('main').innerHTML = "Done" FOR press L
+        // cal = true  //for pressL
+
+        window.addEventListener("keydown", scrolling)
+
+        function scrolling(key){
+            if(key.keyCode == '76'){
+              //  console.log("l pressed")
+                if(scrolly == 690){ //if scrolled down
+                    scrolly = 30 
+                    window.scrollTo(0, scrolly) //scroll up
+                    topPage = true
+                }
+                else{ 
+                    scrolly = 690 
+                    window.scrollTo(0, scrolly) //scroll down
+                    topPage = false
+                }
+            console.log("scrolly:",scrolly)
+            }
+
+        }
         // calibrating bool variable needed for set interval
         function defaults(){ 
 
+            arr = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x']
             let bcol = "#4CAF50"
             let col = "white"
-            let m = document.getElementById('m')
-            let a = document.getElementById("a")
-            let e = document.getElementById("e")
-            let u = document.getElementById("u")
-            let y = document.getElementById('y')
-            m.style.backgroundColor = bcol
-            m.style.color = col
-            a.style.backgroundColor = bcol
-            a.style.color = col
-            e.style.backgroundColor = bcol
-            u.style.backgroundColor = bcol
-            y.style.backgroundColor = bcol
-            e.style.color = col
-            u.style.color = col
-            y.style.color = col 
+
+            for(i in arr){
+                document.getElementById(arr[i]).style.backgroundColor = bcol
+                document.getElementById(arr[i]).style.color = col
+            }
             
-
-
         }
 
-        function pressM(key){
+        function pressA(key){ //previously M
             if(key.keyCode == "65"){
-                console.log("pressed a")
-                center = true;
-               // console.log(center)
-                xCenter = xEye
-                yCenter = yEye
-             console.log("M:", xCenter, yCenter)
+                aA = true;
+                xA = xM = xEye
+                yA = yM = yEye
+             console.log("A:", xA, yA)
         
                 defaults()
-                window.addEventListener("keydown", pressA)
-                window.removeEventListener("keydown", pressM)
-                document.getElementById('main').innerHTML = "Recalibration: Look at A then press A key"
-                document.getElementById('a').style.color = "black"
-                document.getElementById('a').style.backgroundColor = "#ddd"
+                window.addEventListener("keydown", pressB) //previously A
+                window.removeEventListener("keydown", pressA)
+                document.getElementById('main').innerHTML = "Recalibration: Look at B then press A key"
+                document.getElementById('b').style.color = "black"
+                document.getElementById('b').style.backgroundColor = "#ddd"
                 return;
             }
             
             //alert("space key pressed")
         }
 
-        function pressA(key){
+        function pressB(key){ //prev A
          //   window.removeEventListener("keydown", pressM)
-            if(key.keyCode == 65 && center){
-                tleft = true
-                xTLeft = xEye;
-                yTRight = yEye;
-                console.log("A:", xTLeft, yTRight)
+            if(key.keyCode == 65 && aA){
+                bB = true
+                xB = xN = xEye;
+                yB = yN = yEye;
+                console.log("B:", xB, yB)
 
                 defaults()
-                window.addEventListener("keydown", pressE)
-                window.removeEventListener("keydown", pressA)
-                document.getElementById('main').innerHTML = "Recalibration: Look at E then press A key"
-                document.getElementById('e').style.color = "black"
-                document.getElementById('e').style.backgroundColor = "#ddd"
-
+                window.addEventListener("keydown", pressC)
+                window.removeEventListener("keydown", pressB)
+                document.getElementById('main').innerHTML = "Recalibration: Look at C then press A key"
+                document.getElementById('c').style.color = "black"
+                document.getElementById('c').style.backgroundColor = "#ddd"
 
                 return;
             }
@@ -133,106 +153,230 @@
            // window.removeEventListener("keydown", pressA)
         }
 
+        function pressC(key){
+            if(key.keyCode == 65 && bB){
+                cC = true;
+              //  console.log(cC)
+                xC = xO = xEye
+                yC = yO = yEye
+                console.log("C:", xC, yC)
+            
+                defaults()
+                window.addEventListener("keydown", pressD)
+                window.removeEventListener("keydown", pressC)
+                document.getElementById('main').innerHTML = "Recalibration: Look at D then press A key"
+                document.getElementById('d').style.color = "black"
+                document.getElementById('d').style.backgroundColor = "#ddd"
+
+                return;
+            }
+        }
+
+        function pressD(key){
+            if(key.keyCode == 65 && cC){
+                dD = true;
+            //    console.log(uU)
+                xD = xP = xEye
+                yD = yP = yEye
+                console.log("D:", xD, yD)
+            
+                defaults()
+                window.addEventListener("keydown", pressE)
+                window.removeEventListener("keydown", pressD)
+                document.getElementById('main').innerHTML = "Recalibration: Look at E then press A key"
+                document.getElementById('e').style.color = "black"
+                document.getElementById('e').style.backgroundColor = "#ddd"
+
+                return;
+            }
+
+        }
+
         function pressE(key){
-            if(key.keyCode == 65 && tleft){
-                tright = true;
-                console.log(tright)
-                xTRight = xEye
-                yTRight = yEye
-                console.log("E:", xTRight, yTRight)
+            
+            if(key.keyCode == 65 && dD){
+                eE = true;
+                xE = xQ = xEye
+                yE = yQ = yEye
+                console.log("E:", xE, yE)
             
                 defaults()
-                window.addEventListener("keydown", pressU)
                 window.removeEventListener("keydown", pressE)
-                document.getElementById('main').innerHTML = "Recalibration: Look at U then press A key"
-                document.getElementById('u').style.color = "black"
-                document.getElementById('u').style.backgroundColor = "#ddd"
-
+                window.addEventListener("keydown", pressF)
+                document.getElementById('main').innerHTML = "Look at F then press a"
+                document.getElementById('f').style.color = "black" 
+                document.getElementById('f').style.backgroundColor = "#ddd"
+            
                 return;
             }
         }
 
-        function pressU(key){
-            if(key.keyCode == 65 && tright){
-                bleft = true;
-            //    console.log(bleft)
-                xBLeft = xEye
-                yBLeft = yEye
-                console.log("U:", xBLeft, yBLeft)
-            
+        function pressF(key){
+            if(key.keyCode == 65 && eE){
+                fF = true
+                xF = xR = xEye
+                yF = yR = yEye
+                console.log("F:", xF, yF)
+
                 defaults()
-                window.addEventListener("keydown", pressY)
-                window.removeEventListener("keydown", pressU)
-                document.getElementById('main').innerHTML = "Recalibration: Look at Y then press A key"
-                document.getElementById('y').style.color = "black"
-                document.getElementById('y').style.backgroundColor = "#ddd"
+                window.removeEventListener("keydown", pressF)
+                window.addEventListener("keydown", pressG)
+                document.getElementById('main').innerHTML = "Look at G then press A key"
+                document.getElementById('g').style.color = "black" 
+                document.getElementById('g').style.backgroundColor = "#ddd"
 
-                return;
             }
-
         }
-
-        function pressY(key){
-            if(key.keyCode == 65 && bleft){
-                bright = true;
-                xBRight = xEye
-                yBRight = yEye
-                console.log("Y:", xBRight, yBRight)
+        
+        function pressG(key){
             
+            if(key.keyCode == 65 && fF){
+                gG = true
+                xG = xS = xEye
+                yG = yS = yEye
+                console.log("G:", xG, yG)
+
                 defaults()
-               // window.addEventListener("keydown", pressU)
-                window.removeEventListener("keydown", pressY)
-                document.getElementById('main').innerHTML = "Done"
-               // document.getElementById('y').style.color = "black"
-                //document.getElementById('y').style.backgroundColor = "#ddd"
+                window.removeEventListener("keydown", pressG)
+                window.addEventListener("keydown", pressH)
+                document.getElementById('main').innerHTML = "Recalibration: Look at H then press A key"
+                document.getElementById('h').style.color = "black"
+                document.getElementById('h').style.backgroundColor = "#ddd"
 
                 return;
             }
-            
         }
 
+        function pressH(key){
+
+            if(key.keyCode == 65 && gG){
+                hH = true
+                xH = xT = xEye
+                yH = yT = yEye 
+                console.log("H:", xH, yH)
+
+                defaults()
+                window.removeEventListener("keydown", pressH)
+                window.addEventListener("keydown", pressI)
+                document.getElementById("main").innerHTML = "Recalibration: Look at I then press A key"
+                document.getElementById('i').style.color = "black"
+                document.getElementById('i').style.backgroundColor = "#ddd"
+
+                return;
+            }
+        }
+            
+        function pressI(key){
+            if(key.keyCode == 65 && hH){
+                iI = true
+                xI = xU = xEye 
+                yI = yU = yEye
+                console.log("I", xI, yI)
+
+                defaults()
+                window.removeEventListener("keydown", pressI)
+                window.addEventListener("keydown", pressJ)
+                document.getElementById("main").innerHTML = "Recalibration: Look at J then press A key"
+                document.getElementById('j').style.color = "black"
+                document.getElementById('j').style.backgroundColor = "#ddd"
+            }
+        }
+
+        function pressJ(key){
+            if(key.keyCode == 65 && iI){
+                jJ = true
+                xJ = xV = xEye
+                yJ = yV = yEye
+                console.log("J:", xJ, yJ)
+
+                defaults()
+                window.removeEventListener("keydown", pressJ)
+                window.addEventListener("keydown", pressK)
+                document.getElementById("main").innerHTML = "Recalibration: Look at K then press A key"
+                document.getElementById('k').style.color = "black"
+                document.getElementById('k').style.backgroundColor = "#ddd"
+            }
+        }
+
+        function pressK(key){
+            if(key.keyCode == 65 && jJ){
+                kK = true
+                xK = xW = xEye 
+                yK = yW = yEye
+                console.log("K:",xK,yK)
+
+                defaults()
+                window.removeEventListener("keydown", pressK)
+                window.addEventListener("keydown", pressL)
+                document.getElementById("main").innerHTML = "Recalibration: Look at L then press A key"
+                document.getElementById('l').style.color = "black"
+                document.getElementById('l').style.backgroundColor = "#ddd"
+
+            }
+        }
+
+        function pressL(key){
+            if(key.keyCode == 65 && kK){
+                lL = true
+                xL = xX = xEye 
+                yL = yX = yEye 
+                console.log("L:", xL, yL)
+
+                defaults()
+                window.removeEventListener("keydown", pressL)
+
+                document.getElementById("main").innerHTML = "Recalibration: Done"
+
+                cal = true
+            }
+        }
+
+        function recalibrate(){ // A - B - C - D - E - F - G - H - I - J - K - L/Y 
+            cal = false
+            count = 0
+            document.getElementById("main").innerHTML = "Recalibration: Look at A then press 'A' key"
+            document.getElementById("a").style.color = 'black'
+            document.getElementById('a').style.backgroundColor = '#ddd'
+            window.scrollTo(0,30)
+            topPage = true
+
+            window.addEventListener("keydown", pressA) //previously pressM
+
+        }
         function highlight(letter){
             defaults()
             document.getElementById(letter).style.backgroundColor = "#ddd"
             document.getElementById(letter).style.color = "black"
         }
 
-        function recalibrate(){ // A - C - E -{ K - N - O -} U - W - Y 
-         
-            document.getElementById("main").innerHTML = "Recalibration: Look at M then press Space"
-            document.getElementById("m").style.color = 'black'
-            document.getElementById('m').style.backgroundColor = '#ddd'
-
-            window.addEventListener("keydown", pressM)
-
-            // S
-        }
-
         function eyeKey(x,y){ //take current eye coords and map it to a letter and return change(letter)
             // map extreme coordinates to extreme keys
-            let error = 1
+            let error = 20
             let letter
-            if(x <= (xCenter + error) && x >= (xCenter - error) && y <= (yCenter + error) && y >= (yCenter -error)){
-                letter = "m"
-                highlight(letter)
-            }     
-            if(x <= (xTLeft + error) && x >= (xTLeft - error) && y <= (yTLeft + error) && y >= (yTLeft - error)){
-                letter = 'a'
-                highlight(letter)
+            let alphaX = [xA, xB, xC, xD, xE, xF, xG, xH, xI, xJ, xK, xL] // CHANGE
+            let betaX = [xM,xN,xO,xP,xQ,xR,xS,xT,xU,xV,xW,xX] 
+            let alphaY = [yA, yB, yC, yD, yE, yF, yG, yH, yI, yJ, yK, yL]
+            let betaY = [yM,yN,yO,yP,yQ,yR,yS,yT,yU,yV,yW,yX]
+            let i
+            if(topPage){
+                for(i = 0; i <= alphaX.length; i++){
+                    if(x <= (alphaX[i] + error) && x >= (alphaX[i] - error) && y <= (alphaY[i] + error) && y >= (alphaY[i] - error)){
+                        letter = arr[i]
+                        highlight(letter)
+                        console.log("Toppage:", topPage)
+                    }
             }
-            if(x <= (xTRight + error) && x >= (xTRight - error) && y <= (yTRight + error) && y >= (yTRight - error)){
-                letter = "e"
-                highlight(letter)
             }
-            if(x <= (xBLeft + error) && x >= (xBLeft - error) && y <= (yBLeft + error) && y>= (yBLeft - error)){
-                letter = 'u'
-                highlight(letter)
-            }
-            if(x <= (xBRight + error) && x>= (xBRight - error) && y <= (yBRight + error) && y>= (yBRight - error)){
-                letter = 'y'
-                highlight(letter)
-            }
+            if(!topPage){
+                for(i = 0; i <= betaX.length; i++){
+                if(x <= (betaX[i] + error) && x >= (betaX[i] - error) && y <= (betaY[i] + error) && y >= (betaY[i] - error)){
+                    letter = arr[i+12]
+                    highlight(letter)
+                    console.log("topPage:", topPage)
+                }
+                }
 
+            }
             return change(letter);
         }
 
@@ -242,7 +386,7 @@
             let tex = document.getElementById("main").innerHTML
             console.log(tex);
             let arr = tex.split("");
-            console.log(arr);
+        //    console.log(arr);
             if(count === 0){
                 arr=[];
                 count++;
@@ -338,6 +482,7 @@
             tex = arr.join("");
             console.log(tex);
             document.getElementById("main").innerHTML = tex;
+            document.getElementById("main2").innerHTML = tex;
         }
         var count = 0;
         // KEYBOARD CODE END // 
@@ -362,6 +507,10 @@
                 yEye = xy.y
                 $('#ex').html(xy.x) 
                 $('#ey').html(xy.y)
+                $('#ex2').html(xy.x)
+                $('#ey2').html(xy.y)
+                if(cal){eyeKey(xEye, yEye)}
+
                 var img = new Image();
                 var eyeimage = document.getElementById("eyeimg")
                 var canv = eyeimage.getContext('2d')
@@ -400,7 +549,7 @@
             socket.emit("frame", image)
         }
      setInterval(sendframe, 200)
-       
+
     </script>
 </body>
 </html>

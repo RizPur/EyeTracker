@@ -3,7 +3,7 @@ import numpy as np
 import base64
 
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
-thresh = 100
+thresh = 40 #usually 11 
 def imagejson(image):
     _, buffer = cv2.imencode('.jpg', image)
     eyejpg = base64.b64encode(buffer).decode("utf-8")
