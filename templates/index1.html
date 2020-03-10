@@ -60,6 +60,12 @@
               </div>
     </grid>
     
+        Select Voice: <select name="" id="voicelist"></select>
+        <br></br>
+        <!-- <input type="text" id="txt"> -->
+        <br></br>
+        <!-- <button id="speak">Speak!</button> -->
+
         <video id="camera" height="480" width="640" ></video>
         <!-- <button class="block" onclick="sendframe()">Send</button> -->
         <canvas id="frame" height="480" width= "640"></canvas>
@@ -76,8 +82,50 @@
         var arr 
         var scrolly = 2
         var cal, topPage;
-        // document.getElementById('main').innerHTML = "Done" FOR press L
-        // cal = true  //for pressL
+
+        var voicelist = document.querySelector("#voicelist")
+        // var txt = document.querySelector("#txt")
+        // var speak = document.querySelector("#speak")
+
+        var tts = window.speechSynthesis
+        var voices = []
+
+        GetVoices()
+
+        if(speechSynthesis !== undefined){
+            speechSynthesis.onvoiceschanged = GetVoices
+        }
+
+        window.addEventListener('keydown', speaks)
+
+        function speaks(key){
+            if(key.keyCode == '75'){
+                var toSpeak = new SpeechSynthesisUtterance(tex)
+                var selectedVoiceName = voicelist.selectedOptions[0].getAttribute('data-name')
+                voices.forEach((voice)=>{
+                if(voice.name === selectedVoiceName){
+                    toSpeak.voice = voice
+                }
+            })
+            tts.speak(toSpeak)
+            }
+        }
+
+
+        function GetVoices(){
+            voices = tts.getVoices()
+            voicelist.innerHTML = ''
+            voices.forEach((voice)=>{
+                var listItem = document.createElement('option')
+                listItem.textContent = voice.name
+                listItem.setAttribute('data-lang', voice.lang)
+                listItem.setAttribute('data-name', voice.name)
+                voicelist.appendChild(listItem)
+            })
+
+            voicelist.selectedIndex = 0;
+
+        }
 
         window.addEventListener("keydown", scrolling)
 
@@ -383,7 +431,6 @@
 
         // KEYBOARD CODE//
         function change(letter){
-            let tex = document.getElementById("main").innerHTML
             console.log(tex);
             let arr = tex.split("");
         //    console.log(arr);
@@ -485,6 +532,7 @@
             document.getElementById("main2").innerHTML = tex;
         }
         var count = 0;
+        var tex = document.getElementById("main").innerHTML;
         // KEYBOARD CODE END // 
 
         // SOCKET IO CODE //
