@@ -3,7 +3,7 @@ import numpy as np
 import base64
 
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
-thresh = 40 #usually 11 
+thresh = 40 #usually 40
 def imagejson(image):
     _, buffer = cv2.imencode('.jpg', image)
     eyejpg = base64.b64encode(buffer).decode("utf-8")
@@ -118,7 +118,12 @@ def getXY(frame):
     #eye = frame[45:227+45, 260:284+190] #eyevid2
     #eye = frame[52:52+269, 356:352+356] #eyevid3
     #eye = frame[140:52+260, 200:200+200] #eyevid4
-    eye = frame
+    topx = 20
+    topy = 150
+    botx = 400
+    boty = 350
+    cv2.rectangle(frame, (topx,topy), (botx, boty), (255, 255, 100), 1)
+    eye = frame[topy:boty, topx:botx]
     gray_eye = cv2.cvtColor(eye, cv2.COLOR_BGR2GRAY)
 
     blur_eye = blob_process(eye, thresh, detector)
@@ -139,7 +144,7 @@ def getXY(frame):
         cv2.line(eye, (0, yPupil), (400, yPupil), (200, 0, 0), 1)
         break
     
-    
+   
 
     # cv2.imshow('Gray eye', eye)
     # cv2.imshow("Blur", blur_eye)

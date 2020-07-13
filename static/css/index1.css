@@ -21,7 +21,7 @@
 }
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto;
     background-color: rgb(0, 0, 0);
     padding: 0px;
 }

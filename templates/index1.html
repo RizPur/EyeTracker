@@ -18,18 +18,12 @@
     </text>
    <grid>
         <div class="grid-container">
-                <div class="grid-item"><button id="a" class="block" onclick="change('a')" type="button">A</button></div>
-                <div class="grid-item"><button id="b" class="block" onclick="change('b')" type="button">B</button></div>
-                <div class="grid-item"><button id="c" class="block" onclick="change('c')" type="button">C</button></div>
-                <div class="grid-item"><button id="d" class="block" onclick="change('d')" type="button">D</button></div>
-                <div class="grid-item"><button id="e" class="block" onclick="change('e')" type="button">E</button></div>
-                <div class="grid-item"><button id="f" class="block" onclick="change('f')" type="button">F</button></div>
-                <div class="grid-item"><button id="g" class="block" onclick="change('g')" type="button">G</button></div>
-                <div class="grid-item"><button id="h" class="block" onclick="change('h')" type="button">H</button></div>
-                <div class="grid-item"><button id="i" class="block" onclick="change('i')" type="button">I</button></div>
-                <div class="grid-item"><button id="j" class="block" onclick="change('j')" type="button">J</button></div>
-                <div class="grid-item"><button id="k" class="block" onclick="change('k')" type="button">K</button></div>
-                <div class="grid-item"><button id="l" class="block" onclick="change('l')" type="button">L/Y</button></div>
+                <div class="grid-item"><button id="a" class="block" onclick="change('a')" type="button">A/B</button></div>
+                <div class="grid-item"><button id="c" class="block" onclick="change('c')" type="button">C/D</button></div>
+                <div class="grid-item"><button id="e" class="block" onclick="change('e')" type="button">E/F</button></div>
+                <div class="grid-item"><button id="g" class="block" onclick="change('g')" type="button">G/H</button></div>
+                <div class="grid-item"><button id="i" class="block" onclick="change('i')" type="button">I/J</button></div>
+                <div class="grid-item"><button id="k" class="block" onclick="change('k')" type="button">K/L/Y</button></div>
         </div>
         <text>
             <div class = "textbox"> 
@@ -39,20 +33,12 @@
         </text>
 
         <div class = "grid-container">
-                <div class="grid-item"><button id="m" class="block" onclick="change('m')" type="button">M</button></div>
-                <div class="grid-item"><button id="n" class="block" onclick="change('n')" type="button">N</button></div>
-                <div class="grid-item"><button id="o" class="block" onclick="change('o')" type="button">O</button></div>
-                <div class="grid-item"><button id="p" class="block" onclick="change('p')" type="button">P</button></div>
-                <div class="grid-item"><button id="q" class="block" onclick="change('q')" type="button">Q</button></div>
-                <div class="grid-item"><button id="r" class="block" onclick="change('r')" type="button">R</button></div>
-                <div class="grid-item"><button id="s" class="block" onclick="change('s')" type="button">S</button></div>
-                <div class="grid-item"><button id="t" class="block" onclick="change('t')" type="button">T</button></div>
-                <div class="grid-item"><button id="u" class="block" onclick="change('u')" type="button">U</button></div>
-                <div class="grid-item"><button id="v" class="block" onclick="change('v')" type="button">V</button></div>
-                <div class="grid-item"><button id="w" class="block" onclick="change('w')" type="button">W</button></div>
-                <div class="grid-item"><button id="x" class="block" onclick="change('x')" type="button">X/Z</button></div>
-                <div class="grid-item"><button id="y" class="block" onclick="change('y')" type="button">Y</button></div>
-                <div class="grid-item"><button id="z" class="block" onclick="change('z')" type="button">Z</button></div>
+                <div class="grid-item"><button id="m" class="block" onclick="change('m')" type="button">M/N</button></div>
+                <div class="grid-item"><button id="o" class="block" onclick="change('o')" type="button">O/P</button></div>
+                <div class="grid-item"><button id="q" class="block" onclick="change('q')" type="button">Q/R</button></div>
+                <div class="grid-item"><button id="s" class="block" onclick="change('s')" type="button">S/T</button></div>
+                <div class="grid-item"><button id="u" class="block" onclick="change('u')" type="button">U/V</button></div>
+                <div class="grid-item"><button id="w" class="block" onclick="change('w')" type="button">W/X/Z</button></div>
                 <!-- <div class="grid-item"></div> -->
                 <div class="grid-item"><button class="block" onclick="recalibrate()" type="button">Recalibrate</button></div>
                 <!-- <div class="grid-item"></div> -->
@@ -78,10 +64,20 @@
     <script>
         var xA, yA, xE, yE, xK, yK, xB, yB, xC, yC, xD, yD, xF, yF, xG, yG, xH, yH, xI, yI, xJ, yJ, xL, yL
         var xM, yM, xN, yN, xO, yO, xP, yP, xQ, yQ, xR, yR, xS, yS, xT, yT, xU, yU, xV, yV, xW, yW, xX, yX
-        var mM, aA, eE, uU, yyY, bB, cC, dD, fF, gG = false
-        var arr 
+        var mM, aA, eE, uU, yyY, bB, cC, dD, fF, gG, iI, kK = false
+        var arr
+        var j = 0
         var scrolly = 2
-        var cal, topPage;
+        var btn1 = 0
+        var btn2 = 0 
+        var prebtn1 = 0
+        var prebtn2 = 0
+        var gyroX, gyroY, gyroZ, gycalX, gycalY, gycalZ
+        var cal, currentLetter, topPage;
+        var alphaX = [xA, xC, xE, xG, xI, xK] // CHANGE
+        var betaX = [xM,xO,xQ,xS,xU,xW] 
+        var alphaY = [yA,yC,yE,yG,yI,yK]
+        var betaY = [yM,yO,yQ,yS,yU,yW]
 
         var voicelist = document.querySelector("#voicelist")
         // var txt = document.querySelector("#txt")
@@ -99,8 +95,12 @@
         window.addEventListener('keydown', speaks)
 
         function speaks(key){
-            if(key.keyCode == '75'){
-                var toSpeak = new SpeechSynthesisUtterance(tex)
+            if(key.keyCode == '75'){ // k
+                speakAloud()
+            }
+        }
+        function speakAloud(){
+            var toSpeak = new SpeechSynthesisUtterance(tex)
                 var selectedVoiceName = voicelist.selectedOptions[0].getAttribute('data-name')
                 voices.forEach((voice)=>{
                 if(voice.name === selectedVoiceName){
@@ -108,9 +108,7 @@
                 }
             })
             tts.speak(toSpeak)
-            }
         }
-
 
         function GetVoices(){
             voices = tts.getVoices()
@@ -126,13 +124,8 @@
             voicelist.selectedIndex = 0;
 
         }
-
-        window.addEventListener("keydown", scrolling)
-
-        function scrolling(key){
-            if(key.keyCode == '76'){
-              //  console.log("l pressed")
-                if(scrolly == 690){ //if scrolled down
+        function toScroll(){
+            if(scrolly == 690){ //if scrolled down
                     scrolly = 30 
                     window.scrollTo(0, scrolly) //scroll up
                     topPage = true
@@ -143,13 +136,21 @@
                     topPage = false
                 }
             console.log("scrolly:",scrolly)
+        }
+        
+        window.addEventListener("keydown", scrolling)
+
+        function scrolling(key){
+            if(key.keyCode == '76'){
+              //  console.log("l pressed")
+               toScroll()
             }
 
         }
         // calibrating bool variable needed for set interval
         function defaults(){ 
 
-            arr = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x']
+            arr = ['a','c','e','g','i','k','m','o','q','s','u','w']
             let bcol = "#4CAF50"
             let col = "white"
 
@@ -159,6 +160,7 @@
             }
             
         }
+
 
         function pressA(key){ //previously M
             if(key.keyCode == "65"){
@@ -379,16 +381,39 @@
             }
         }
 
+        var enter = false
+        function submit(key){
+            if(key.keyCode == m){
+                enter = true
+            }
+        }
+
         function recalibrate(){ // A - B - C - D - E - F - G - H - I - J - K - L/Y 
             cal = false
             count = 0
-            document.getElementById("main").innerHTML = "Recalibration: Look at A then press 'A' key"
+            document.getElementById("main").innerHTML = "Recalibration: Look at A then press 'A' key or Button"
             document.getElementById("a").style.color = 'black'
             document.getElementById('a').style.backgroundColor = '#ddd'
             window.scrollTo(0,30)
             topPage = true
 
             window.addEventListener("keydown", pressA) //previously pressM
+
+            // let alpha = [xA, xC, xE, xG, xI, xK, yA, yC, yE, yG, yI, yK]
+            // let beta = [xM, xO, xQ, xS, xU, xW, yM, yO, yQ, yS, yU, yW]
+            //let i
+            // for(i = 0; i <= alpha.length/2; i++){
+            //     document.getElementById("main").innerHTML = "Recalibration: Look at " + tex[i] + "and press button"
+            //     highlight(tex[i])
+            //    // while(!(prebtn1!=btn1 && (btn1==1||btn1==2))){console.log("waiting for btn")} //cant wait here without checking for btn or eye vals
+            //     //probably have to do some if counter thing
+            //     alpha[i] = beta[i] = xEye
+            //     alpha[i+4] = beta[i+4] = yEye
+
+            // }            
+            // document.getElementById("main").innerHTML = "Recalibration: Done"
+
+            // cal = true
 
         }
         function highlight(letter){
@@ -399,126 +424,100 @@
 
         function eyeKey(x,y){ //take current eye coords and map it to a letter and return change(letter)
             // map extreme coordinates to extreme keys
-            let error = 20
-            let letter
-            let alphaX = [xA, xB, xC, xD, xE, xF, xG, xH, xI, xJ, xK, xL] // CHANGE
-            let betaX = [xM,xN,xO,xP,xQ,xR,xS,xT,xU,xV,xW,xX] 
-            let alphaY = [yA, yB, yC, yD, yE, yF, yG, yH, yI, yJ, yK, yL]
-            let betaY = [yM,yN,yO,yP,yQ,yR,yS,yT,yU,yV,yW,yX]
-            let i
+            let errorx = 10
+            let errory = 2
+            let letter, i
+            //console.log(alphaX)
             if(topPage){
                 for(i = 0; i <= alphaX.length; i++){
-                    if(x <= (alphaX[i] + error) && x >= (alphaX[i] - error) && y <= (alphaY[i] + error) && y >= (alphaY[i] - error)){
+                    if(x <= (alphaX[i] + errorx) && x >= (alphaX[i] - errorx) && y <= (alphaY[i] + errory) && y >= (alphaY[i] - errory)){
                         letter = arr[i]
+                        currentLetter = letter
                         highlight(letter)
-                        console.log("Toppage:", topPage)
+                        //console.log("letter beeing seen: ", letter)
+                        //console.log("Toppage:", topPage)
                     }
-            }
+                }
             }
             if(!topPage){
                 for(i = 0; i <= betaX.length; i++){
-                if(x <= (betaX[i] + error) && x >= (betaX[i] - error) && y <= (betaY[i] + error) && y >= (betaY[i] - error)){
-                    letter = arr[i+12]
-                    highlight(letter)
-                    console.log("topPage:", topPage)
-                }
+                    if(x <= (betaX[i] + errorx) && x >= (betaX[i] - errorx) && y <= (betaY[i] + errory) && y >= (betaY[i] - errory)){
+                        letter = arr[i+6]
+                        currentLetter = letter
+                        highlight(letter)
+                        //  console.log("topPage:", topPage)
+                    }
                 }
 
             }
-            return change(letter);
         }
+
+        window.addEventListener("keydown", submit)
+            
 
 
         // KEYBOARD CODE//
-        function change(letter){
-            console.log(tex);
+        function change(letter, pos){
+            console.log(count);
             let arr = tex.split("");
-        //    console.log(arr);
+         //    console.log(arr);
             if(count === 0){
                 arr=[];
                 count++;
             }
             switch(letter){ //add all the hover attributes to style
                 case 'a':
-                    console.log('You pressed A');
-                    arr.push('a');
+                    //    console.log('You pressed A');
+                    if(pos == 0){arr.push("a")}
+                    if(pos == 1){arr.push('b')} 
                  //   console.log(arr);
                     break;
-                case 'b':
-                    arr.push('b');
-                    break;
-                case 'c': 
-                    arr.push('c');
-                    break;
-                case 'd': 
-                    arr.push('d');
+                case 'c':
+                    if(pos == 0){arr.push("c")}
+                    if(pos == 1){arr.push('d')} 
                     break;
                 case 'e': 
-                    arr.push('e');
-                    break;
-                case 'f': 
-                    arr.push('f');
+                    if(pos == 0){arr.push("e")}
+                    if(pos == 1){arr.push('f')} 
                     break;
                 case 'g': 
-                    arr.push('g');
-                    break; 
-                case 'h': 
-                    arr.push('h');
+                    if(pos == 0){arr.push("g")}
+                    if(pos == 1){arr.push('h')} 
                     break;
                 case 'i': 
-                    arr.push('i');
-                    break;
-                case 'j': 
-                    arr.push('j');
+                    if(pos == 0){arr.push("i")}
+                    if(pos == 1){arr.push('j')} 
                     break;
                 case 'k': 
-                    arr.push('k');
-                    break;
-                case 'l':
-                    arr.push('l');
+                    if(pos == 0){arr.push("k")}
+                    if(pos == 1){arr.push('l')} 
+                    if(pos == 2){arr.push('y')}
                     break;
                 case 'm': 
-                    arr.push('m');
-                    break;
-                case 'n': 
-                    arr.push('n');
+                    if(pos == 0){arr.push("m")}
+                    if(pos == 1){arr.push('n')} 
                     break; 
                 case 'o': 
-                    arr.push('o');
-                    break;
-                case 'p': 
-                    arr.push('p');
+                    if(pos == 0){arr.push("o")}
+                    if(pos == 1){arr.push('p')} 
                     break;
                 case 'q': 
-                    arr.push('q');
-                    break;
-                case 'r':
-                    arr.push('r');
+                    if(pos == 0){arr.push("q")}
+                    if(pos == 1){arr.push('r')} 
                     break;
                 case 's': 
-                    arr.push('s');
+                    if(pos == 0){arr.push("s")}
+                    if(pos == 1){arr.push('t')} 
                     break;
-                case 't':
-                    arr.push('t');
-                    break;
-                case 'u':
-                    arr.push('u');
-                    break;
-                case 'v':
-                    arr.push('v');
+                case 'u': 
+                    if(pos == 0){arr.push("u")}
+                    if(pos == 1){arr.push('v')} 
                     break;
                 case 'w':
-                    arr.push('w');
+                    if(pos == 0){arr.push("w")}
+                    if(pos == 1){arr.push('x')}
+                    if(pos == 2){arr.push('z')} 
                     break;
-                case 'x': 
-                    arr.push('x');
-                    break;
-                case 'y': 
-                    arr.push('y');
-                    break;
-                case 'z': 
-                    arr.push('z');
-                    break;    
                 case '<=':
                     arr.pop();
                     break;
@@ -533,6 +532,7 @@
         }
         var count = 0;
         var tex = document.getElementById("main").innerHTML;
+        
         // KEYBOARD CODE END // 
 
         // SOCKET IO CODE //
@@ -550,14 +550,81 @@
     
             socket = io()
             // socket.emit("name", "My name is Joel")
+            
             socket.on("response", function(xy){
+                let tex = ['a', 'c', 'e', 'g', 'i', 'k']
+                //let tru = [aA, cC, eE, gG, iI, kK]
+                // let alphaX = [xA, xC, xE, xG, xI, xK] // CHANGE
+                // let betaX = [xM,xO,xQ,xS,xU,xW] 
+                // let alphaY = [yA,yC,yE,yG,yI,yK]
+                // let betaY = [yM,yO,yQ,yS,yU,yW]
+                
                 xEye = xy.x
                 yEye = xy.y
+                prebtn1 = btn1
+                prebtn2 = btn2
+               // console.log(xy.data[0])
+                btn1 = xy.data[0]
+                btn2 = xy.data[1]
+                if(prebtn2!=btn2 && (btn2 == 3||btn2 == 4)){toScroll()}
+                if(prebtn1!=btn1 && (btn1 == 3||btn1 == 4)){
+                    speakAloud()
+                    count = 0
+                }
+                if(cal && prebtn1!=btn1 && (btn1==1||btn1==2)){change(currentLetter,1)}
+                if(cal && prebtn2!=btn2 && (btn2==1||btn2==2)){change(currentLetter,0)}
+                if(cal && prebtn1!=btn1 && (btn1==5||btn1==6)){change(currentLetter,2)}
+                if(cal && prebtn2!=btn2 && (btn2==5||btn2==6)){change('<=')}
+                if((cal == false) && prebtn1!=btn1 && (btn1==1||btn1==2)){
+                    //set cal to false if will check btn state 
+                    //when btn is pushed set alphaX[i] to xEye then i++, 
+                    //then highlight(tex[i]), if i = 5,i = 0 and set cal to true
+                    //console.log("j: ", j);
+                    alphaX[j] = betaX[j] = xEye
+                    alphaY[j] = betaY[j] = yEye
+                    //console.log(tex[j] + " :", alphaX[j], alphaY[j])
+                    if(j == 5){
+                        cal = true
+                        defaults()
+                        j = 0
+                        document.getElementById("main").innerHTML = "Recalibration: Done" 
+                        //take in gyros and save them as calibrated variables
+                        gycalX = gyroX
+                        gycalY = gyroY
+                        gycalZ = gyroZ
+                    }
+                    else{
+                        j++
+                        document.getElementById("main").innerHTML = "Recalibration: Look at " + tex[j] + " and press button"
+                        highlight(tex[j])
+                        speakAloud()
+                    }
+                    // //console.log(cal)
+                }
+
+                gyroX = xy.data[2]
+                gyroY = xy.data[3]
+                gyroZ = xy.data[4]
+                //gyros(gyroX, gyroY, gyroZ)
                 $('#ex').html(xy.x) 
                 $('#ey').html(xy.y)
                 $('#ex2').html(xy.x)
                 $('#ey2').html(xy.y)
-                if(cal){eyeKey(xEye, yEye)}
+                if(cal){
+                    eyeKey(xEye, yEye)
+                    //and check calibrated gyros - current gyro if more than limit console.log
+                    let diffX = Math.abs(gycalX - gyroX)
+                    let diffY = Math.abs(gycalY - gyroX)
+                    let diffZ = Math.abs(gycalZ - gyroZ)
+                    let limit = 1500
+                    let warn = "Recalibration: You moved too much. Please Recalibrate"
+                    //console.log(diffX, diffY, diffZ)
+                    if(diffX >= limit || diffY >= limit || diffZ >= limit){
+                        document.getElementById("main").innerHTML = warn
+                        document.getElementById("main2").innerHTML = warn 
+                        speakAloud()
+                    }
+                } 
 
                 var img = new Image();
                 var eyeimage = document.getElementById("eyeimg")
@@ -575,8 +642,7 @@
 
 
             })
-           
-          // cam.play()
+
         })
         function success(stream){
             var cam = document.getElementById("camera")
@@ -596,7 +662,15 @@
             console.log("Sending frame")
             socket.emit("frame", image)
         }
+        function getData(){
+            if(cal == false){
+                console.log("getting data")
+            }
+            console.log("getting data")
+            socket.emit("getData", cal)
+        }
      setInterval(sendframe, 200)
+     //setInterval(getData, 200)
 
     </script>
 </body>
