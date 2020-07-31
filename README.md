@@ -20,7 +20,7 @@ The other files are either used for tests or are used in the background by the m
 
 *HOW TO RUN*
 
-Connect the button circuit to the computer using the programmer and run the flaskbog.py script
+Connect the USB webcam and the button circuit to the computer using the programmer and run the flaskbog.py script
 
 *NOTE*
 
