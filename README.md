@@ -32,3 +32,11 @@ The error values for the eye coordinates can be changed in index1.html (line 427
 Read the report, poster and PowerPoint presentation here: 
 https://www.dropbox.com/sh/rxno9jgkgpzz1ou/AAB3DmIJprQ1kS404O4goReOa?dl=0
 
+*HOW TO IMPROVE* 
+
+Infrared camera
+
+The Y coordinates are not significant enough to eliminate error so we should get rid of Y all together:
+-use eyes to choose between the 2 columns and buttons to choose between which column of the letter box to look at
+-then from that column, change it to a row and use eyes to choose a letter
+
