@@ -6,15 +6,15 @@ The words can be then spoken aloud.
 There are several files in this repository that do not coontribute to the working eyetracker keyboard code. 
 The necessary files are:
 
--Static -> CSS  and jS (this jS files holds necessary modules for main script to work such as jQuery)
+- Static -> CSS  and jS (this jS files holds necessary modules for main script to work such as jQuery)
 
--Templates -> index1.html (holds the main keyboard and server html and jS code)
+- Templates -> index1.html (holds the main keyboard and server html and jS code)
 
--eyes.py (this is main image processing script)
+- eyes.py (this is main image processing script)
 
--flaskbog.py (this is flask application that launches the website)
+- flaskbog.py (this is flask application that launches the website)
 
--ArduinoFinalYP.c (button/gyro code)
+- ArduinoFinalYP.c (button/gyro code)
 
 The other files are either used for tests or are used in the background by the main scripts
 
