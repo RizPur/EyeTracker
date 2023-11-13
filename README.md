@@ -1,42 +1,46 @@
-*Description*
+# EyeTracker System 🧑‍💻
 
-This system maps the position of the pupil onto a letter box on the screen enabling users to type with their eyes and two buttons.
-The words can be then spoken aloud.
+## Description 📝
 
-There are several files in this repository that do not coontribute to the working eyetracker keyboard code. 
-The necessary files are:
+The EyeTracker system is an assistive technology that enables users to type with their eyes 👀. By leveraging a USB webcam and a simple button interface, the system detects the position of the user's pupils and maps them onto a virtual keyboard on the screen. This innovative approach allows for typing without the need for traditional input devices and includes text-to-speech functionality to vocalize the typed words 🗣️.
 
-- Static -> CSS  and jS (this jS files holds necessary modules for main script to work such as jQuery)
+## Key Components 🔑
 
-- Templates -> index1.html (holds the main keyboard and server html and jS code)
+The repository includes several essential files that contribute to the EyeTracker's functionality:
 
-- eyes.py (this is main image processing script)
+- `Static/`: Contains CSS and JavaScript files, crucial for the main script's operation, including modules like jQuery.
+- `Templates/index1.html`: Hosts the keyboard interface and server-side JavaScript code.
+- `eyes.py`: The primary image processing script for pupil tracking.
+- `flaskbog.py`: The Flask application that launches the web interface.
+- `ArduinoFinalYP.c`: Manages button and gyroscopic input.
 
-- flaskbog.py (this is flask application that launches the website)
+Other files in the repository are for testing or support the main scripts indirectly.
 
-- ArduinoFinalYP.c (button/gyro code)
+## Installation and Execution 🚀
 
-The other files are either used for tests or are used in the background by the main scripts
+To get the EyeTracker system up and running:
 
-*HOW TO RUN*
+1. Connect a USB webcam and the button circuit to your computer.
+2. Run the `flaskbog.py` script to start the web application.
 
-Connect the USB webcam and the button circuit to the computer using the programmer and run the flaskbog.py script
+## Configuration Notes ⚙️
 
-*NOTE*
+- Adjust the eye detection sensitivity in `eyes.py` (threshold range: 0 - 255, set at line 6).
+- Modify the visible box limit in the video feed within `eyes.py` (lines 121 - 124).
+- Change the communication port settings in `flaskbog.py`.
+- Tweak the error values for eye coordinate mapping in `Templates/index1.html` (lines 427-428).
 
-The colour threshold for the eye recording is located in the eyes.py (thresh 0 - 255 [line 6]) increase or decrease until only pupil blob is visible. 
-The box limit seen on video can be changed in eyes.py (line 121 - 124).
-The com port can be changed in the flaskbog.py script.
-The error values for the eye coordinates can be changed in index1.html (line 427-428).
+## Documentation 📚
 
-Read the report, poster and PowerPoint presentation here: 
-https://www.dropbox.com/sh/rxno9jgkgpzz1ou/AAB3DmIJprQ1kS404O4goReOa?dl=0
+Explore the project's detailed explanation, including a report, poster, and PowerPoint presentation, at the [project documentation link](https://www.dropbox.com/sh/rxno9jgkgpzz1ou/AAB3DmIJprQ1kS404O4goReOa?dl=0).
 
-*HOW TO IMPROVE* 
+## Future Enhancements 🌟
 
-Infrared camera
+- **Infrared Camera Integration**: To boost accuracy and minimize pupil detection errors.
+- **Y Coordinate Optimization**: Improving the selection process by:
+  - Using eye movement to select between two columns on the keyboard.
+  - Employing buttons to choose the desired column, then switching to row selection for letter choice.
 
-The Y coordinates are not significant enough to eliminate error so we should get rid of Y all together:
--use eyes to choose between the 2 columns and buttons to choose between which column of the letter box to look at
--then from that column, change it to a row and use eyes to choose a letter
+---
 
+Contributions and suggestions are welcome to help enhance the EyeTracker system. Thank you for your support and interest! 🙏
